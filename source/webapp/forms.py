@@ -9,7 +9,7 @@ class ProductForm(forms.Form):
                            widget=forms.Textarea)
     category = forms.ChoiceField(choices=CATEGORY_CHOICES, required=True, label='Категория',
                                initial=DEFAULT_CATEGORY)
-    amount = forms.IntegerField(required=False, label='Остаток',validators=(MinValueValidator(0),))
+    amount = forms.IntegerField(required=True, label='Остаток',validators=(MinValueValidator(0),))
     price = forms.DecimalField(required=True,max_digits=7, label='Цена', decimal_places=2,
                                 validators=(MinValueValidator(0),))
 

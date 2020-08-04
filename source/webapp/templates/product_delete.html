@@ -5,12 +5,14 @@
 {% endblock %}
 {% block content %}
     <h1>Вы уверены, что хотите удалить продукт "{{ product.name }}"?</h1>
-    <p>By: {{ product.category }} | {{ product.price }}</p>
+    <p><b>Category:</b> {{ product.category }} </p>
+    <p><b>Price:</b> ${{ product.price }}</p>
+     <h5>Полное описание задачи: </h5>
+    <p>{{ product.description }}</p>
     <form action="{% url "product_delete" product.pk %}" method="post">
         {% csrf_token %}
-        <p><input type="submit" value="Да"></p>
-        <p><a href="{% url 'product_view' product.pk %}" value="Отмена"></a></p>
+        <p><input type="submit" value="Удалить" class="btn btn-danger"></p>
+         <a href="{% url 'product_view' product.pk  %}" class="btn btn-primary" role="button" aria-pressed="true">Отмена</a>
     </form>
-    <h3>Полное описание задачи: </h3>
-    <p>{{ product.description }}</p>
+
 {% endblock %}

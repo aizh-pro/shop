@@ -6,7 +6,7 @@ from webapp.models import Product
 
 
 def index_view(request):
-    data = Product.objects.all()
+    data = Product.objects.filter(amount__gt=0)
     return render(request, 'index.html', context={
         'products': data
     })
