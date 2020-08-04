@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}View{% endblock %}
+{% block menu %}
+{#    <li><a href="{% url 'product_update' product.pk %}">Update</a></li>#}
+{#    <li><a href="{% url 'product_delete' product.pk %}">Delete</a></li>#}
+{% endblock %}
+{% block content %}
+    <h1>Detailed page</h1>
+    <p><b>Title:</b> {{ product.name }}</p>
+     <p><b>product id:</b> 00{{ product.pk }}</p>
+    <p><b>Status:</b> {{ product.category }}</p>
+    <p><b>Amount:</b> {{ product.amount }}</p>
+    <p><b>Description:</b> {{ product.description }}</p>
+    <p><b>Price:</b> {{ product.price }}</p>
+{% endblock %}
+
+
+

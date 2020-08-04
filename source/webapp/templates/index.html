@@ -1,31 +1,23 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Hello</title>
-    <style type="text/css">
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-            color: #444444;
-        }
+{% extends 'base.html' %}
 
-        .container {
-            margin: 0 auto;
-            width: 100%;
-            max-width: 900px;
-            text-align: center;
-        }
+{% block menu %}
 
-    </style>
-</head>
-<body>
-<div class="container">
-    <p>This is Shop!</p>
-    <p>Hello World!</p>
-</div>
-</body>
-</html>
+{% endblock %}
+{% block content %}
+   <hr/>
+<form>
+   {% for product in products %}
+        <h2><a href="{% url 'product_view' product.pk %}">{{ product.name }}</a></h2>
+       <p>Id товара: 00{{ product.pk }}</p>
+        <p>Категория: {{ product.get_category_display }}</p>
+    <p> Price:{{ product.price}}</p>
+    <p><a href="{% url 'product_view' product.pk %}">Подробнее</a></p>
+{#    <p><a href="{% url 'product_update' product.pk %}">Update</a></p>#}
+</form>
+       <hr/>
+   {% endfor %}
+{% endblock %}
+
+
+
+
