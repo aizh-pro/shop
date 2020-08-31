@@ -27,3 +27,16 @@ class Product(models.Model):
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
         ordering = ['name']
+
+
+#
+# class ProductOrder(models.Model):
+#     product_qty = models.IntegerField(max_length=100, verbose_name='Количество товаров')
+#     order = models.ForeignKey('webapp.Order', related_name='orders', on_delete=models.CASCADE, verbose_name='Заказ')
+#     product = models.ForeignKey('webapp.Product', related_name='products', on_delete=models.CASCADE,
+#                                 verbose_name='Товар')
+#
+# class Order(models.Model):
+#     user_name = models.CharField(max_length=100, verbose_name='Имя пользователя')
+#     phone = models.IntegerField(max_length=100, verbose_name='Телефон')
+#     product_name = models.CharField(max_length=100, verbose_name='Название продукта')
