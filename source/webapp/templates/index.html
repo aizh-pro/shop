@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 
 {% block menu %}
-    <div class="container inline-block">
-<ul class="nav justify-content-end">
+
   <li class="nav-item">
     <a class="nav-link active" href="#">Еда</a>
   </li>
@@ -15,13 +14,17 @@
   <li class="nav-item">
       <a class="nav-link" href="#">Игрушки</a>
   </li>
-</ul>
-    </div>
+
+
 {% endblock %}
 {% block content %}
     <form>
+        {% if is_paginated %}
+            {% include 'partial/pagination.html' %}
+            {% endif %}
        {% for product in products %}
             <h2><a href="{% url 'product_view' product.pk %}">{{ product.name }}</a></h2>
+
            <p>Id товара: 00{{ product.pk }}</p>
             <p>Категория: {{ product.get_category_display }}</p>
         <p> Price:{{ product.price}}</p>
