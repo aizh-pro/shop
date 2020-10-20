@@ -13,7 +13,28 @@ from .models import CATEGORY_CHOICES, DEFAULT_CATEGORY, Product
 #     price = forms.DecimalField(required=True,max_digits=7, label='Цена', decimal_places=2,
 #                                 validators=(MinValueValidator(0),))
 
+from django import forms
+from webapp.models import Product, Cart, Order
+
+
+class SimpleSearchForm(forms.Form):
+    search = forms.CharField(max_length=100, required=False, label="Найти")
+
+
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'description','category', 'amount','price']
+        exclude = []
+
+
+class CartAddForm(forms.ModelForm):
+    class Meta:
+        model = Cart
+        # fields = []
+        fields = ['qty']  # бонус
+
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        exclude = ['products']
