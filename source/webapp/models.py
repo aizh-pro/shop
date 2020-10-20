@@ -53,19 +53,18 @@ class Order(models.Model):
 
 
 class OrderProduct(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='Заказ', related_name='order_products')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Товар', related_name='order_products')
-    amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Количество')
+    product = models.ForeignKey('webapp.Product', on_delete=models.CASCADE,
+                                verbose_name='Товар', related_name='order_products')
+    order = models.ForeignKey('webapp.Order', on_delete=models.CASCADE,
+                              verbose_name='Заказ', related_name='order_products')
+    qty = models.IntegerField(verbose_name='Количество')
 
     def __str__(self):
-        return "{} - {}".format(self.product, self.order)
-
-    def get_total(self):
-        return self.amount * self.product.price
+        return f'{self.product.name} - {self.order.name} - {self.order.format_time()}'
 
     class Meta:
         verbose_name = 'Товар в заказе'
-        verbose_name_plural = 'Товары в заказах'
+        verbose_name_plural = 'Товары в заказе'
 
 
 class Cart(models.Model):
