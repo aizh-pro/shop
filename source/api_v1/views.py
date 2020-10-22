@@ -1,8 +1,9 @@
 from django.http import HttpResponse, HttpResponseNotAllowed
 from django.views.decorators.csrf import ensure_csrf_cookie
+from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
-from api_v1.permissions import CheckIsStaff, OnlyIsStaffAllowSeeOrder
+from api_v1.permissions import CheckIsStaff,  GETModelPermissions
 from api_v1.serializers import ProductSerializer, OrderSerializer, OrderProductSerializer
 from webapp.models import Product, Order, Cart
 from django.shortcuts import get_object_or_404
@@ -51,8 +52,15 @@ class ProductViewSet(ViewSet):
         product.delete()
         return Response({'pk': pk})
 
+
 class OrderViewSet(ViewSet):
     queryset = Order.objects.all()
+
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve']:  # self.request.method == "GET"
+            return [GETModelPermissions()]
+        else:
+            return [AllowAny()]
 
     def list(self, request):
         objects = Order.objects.all()
@@ -92,7 +100,3 @@ class OrderViewSet(ViewSet):
         return Response(slr.data)
 
 
-    def destroy(self, request, pk=None):
-        order = get_object_or_404(Order, pk=pk)
-        order.delete()
-        return Response({'pk': pk})
