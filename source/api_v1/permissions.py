@@ -9,3 +9,11 @@ class CheckIsStaff(BasePermission):
             request.user and
             request.user.is_staff
         )
+
+class OnlyIsStaffAllowSeeOrder(BasePermission):
+
+    def has_permission(self, request, view):
+        return bool(
+            request.user.is_staff
+        )
+
