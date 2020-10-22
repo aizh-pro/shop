@@ -56,11 +56,11 @@ class ProductViewSet(ViewSet):
 class OrderViewSet(ViewSet):
     queryset = Order.objects.all()
 
-    # def get_permissions(self):
-    #     if self.action in ['list', 'retrieve']:  # self.request.method == "GET"
-    #         return [GETModelPermissions()]
-    #     else:
-    #         return [AllowAny()]
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve']:  # self.request.method == "GET"
+            return [GETModelPermissions()]
+        else:
+            return [AllowAny()]
 
     def list(self, request):
         objects = Order.objects.all()
@@ -83,6 +83,7 @@ class OrderViewSet(ViewSet):
                 print(i)
                 cart = get_object_or_404(Cart, pk= i)
                 order_product = OrderProductSerializer(data={'product': cart.product.pk, 'order':order.pk, 'qty': cart.qty })
+                cart.delete()
                 if order_product.is_valid():
                     order_save = order_product.save()
                     order_products.append(order_product)
