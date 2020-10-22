@@ -56,11 +56,11 @@ class ProductViewSet(ViewSet):
 class OrderViewSet(ViewSet):
     queryset = Order.objects.all()
 
-    def get_permissions(self):
-        if self.action in ['list', 'retrieve']:  # self.request.method == "GET"
-            return [GETModelPermissions()]
-        else:
-            return [AllowAny()]
+    # def get_permissions(self):
+    #     if self.action in ['list', 'retrieve']:  # self.request.method == "GET"
+    #         return [GETModelPermissions()]
+    #     else:
+    #         return [AllowAny()]
 
     def list(self, request):
         objects = Order.objects.all()
